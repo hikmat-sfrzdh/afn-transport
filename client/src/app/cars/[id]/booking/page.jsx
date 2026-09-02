@@ -65,7 +65,7 @@ function BookingContent() {
         async function fetchCarDetails() {
             if (!carId) return;
             try {
-                const res = await fetch(`${API_URL}/api/cars/${carId}`);
+                const res = await fetch(`${API_URL}/cars/${carId}`);
                 const data = await res.json();
                 const carData = data.car || data;
 
@@ -140,7 +140,7 @@ function BookingContent() {
         setError("");
 
         try {
-            const res = await fetch(`${API_URL}/api/bookings`, {
+            const res = await fetch(`${API_URL}/bookings`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -158,7 +158,7 @@ function BookingContent() {
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || "Xəta baş verdi");
 
-            router.push(`/api/cars/${carId}/booking/success`);
+            router.push(`${API_URL}/cars/${carId}/booking/success`);
         } catch (err) {
             setError(err.message);
         } finally {
