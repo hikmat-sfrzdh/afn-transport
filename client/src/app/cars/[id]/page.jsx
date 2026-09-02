@@ -23,7 +23,7 @@ import {
 
 import CarReviews from "@/components/layout/CarReviews";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_URL = "/api";
 
 export default function CarDetailPage() {
   const params = useParams();
@@ -42,7 +42,7 @@ export default function CarDetailPage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/auth/me`, {
+        const res = await fetch(`${API_URL}/auth/me`, {
           credentials: "include",
         });
 
@@ -66,7 +66,7 @@ export default function CarDetailPage() {
       setError(null);
 
       try {
-        const res = await fetch(`${API_URL}/api/cars/${id}`);
+        const res = await fetch(`${API_URL}/cars/${id}`);
 
         if (!res.ok) {
           throw new Error(`Maşın tapılmadı. Status: ${res.status}`);
@@ -75,7 +75,7 @@ export default function CarDetailPage() {
         const data = await res.json();
         setCar(data);
 
-        const relatedRes = await fetch(`${API_URL}/api/cars?limit=5`);
+        const relatedRes = await fetch(`${API_URL}/cars?limit=5`);
 
         if (relatedRes.ok) {
           const relatedData = await relatedRes.json();

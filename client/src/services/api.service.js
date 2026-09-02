@@ -1,11 +1,11 @@
 
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_URL = "/api";
 
 export async function getCars(searchParams = {}) {
   try {
     const params = new URLSearchParams(searchParams).toString();
-    const url = `${API_URL}/api/cars${params ? `?${params}` : ""}`;
+    const url = `${API_URL}/cars${params ? `?${params}` : ""}`;
 
     const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
@@ -17,7 +17,7 @@ export async function getCars(searchParams = {}) {
 
 export async function getCarById(id) {
   try {
-    const res = await fetch(`${API_URL}/api/cars/${id}`, { cache: "no-store" });
+    const res = await fetch(`${API_URL}/cars/${id}`, { cache: "no-store" });
     const data = await res.json();
     return data
   } catch (error) {
@@ -27,7 +27,7 @@ export async function getCarById(id) {
 
 export async function createCar(formData) {
   try {
-    const res = await fetch(`${API_URL}/api/cars`, {
+    const res = await fetch(`${API_URL}/cars`, {
       method: "POST",
       body: formData,
       credentials: "include"
@@ -47,7 +47,7 @@ export async function createCar(formData) {
 
 export async function deleteCar(id) {
   try {
-    const res = await fetch(`${API_URL}/api/cars/${id}`, {
+    const res = await fetch(`${API_URL}/cars/${id}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -67,7 +67,7 @@ export async function deleteCar(id) {
 
 export async function updateCar(id, carData) {
   try {
-    const res = await fetch(`${API_URL}/api/cars/${id}`, {
+    const res = await fetch(`${API_URL}/cars/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export async function updateCar(id, carData) {
 
 export async function logoutUser() {
   try {
-    const res = await fetch(`${API_URL}/api/auth/logout`, {
+    const res = await fetch(`${API_URL}/auth/logout`, {
       method: "POST",
       credentials: "include",
     });
@@ -108,8 +108,9 @@ export async function logoutUser() {
 
 export async function getMyCars() {
   try {
-    const res = await fetch(`${API_URL}/api/cars/my-cars`, {
+    const res = await fetch(`${API_URL}/cars/my-cars`, {
       method: "GET",
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       cache: "no-store"
     });
@@ -126,7 +127,7 @@ export async function getMyCars() {
 }
 
 export async function getOwnerReviews() {
-    const res = await fetch(`${API_URL}/api/reviews/owner`, {
+    const res = await fetch(`${API_URL}/reviews/owner`, {
         credentials: "include",
         cache: "no-store"
     });
@@ -142,7 +143,7 @@ export async function getOwnerReviews() {
 
 export async function updateReview(id, reviewData){
   try {
-    const res = await fetch(`${API_URL}/api/reviews/${id}`, {
+    const res = await fetch(`${API_URL}/reviews/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json"
@@ -162,7 +163,7 @@ export async function updateReview(id, reviewData){
 
 export async function getMyBookings() {
   try {
-    const res = await fetch(`${API_URL}/api/bookings`, {
+    const res = await fetch(`${API_URL}/bookings`, {
       method: "GET",
       credentials: "include",
       cache: "no-store",
@@ -183,7 +184,7 @@ export async function getMyBookings() {
 
 export async function cancelBooking(id) {
   try {
-    const res = await fetch(`${API_URL}/api/bookings/${id}/cancel`, {
+    const res = await fetch(`${API_URL}/bookings/${id}/cancel`, {
       method: "PUT",
       credentials: "include",
     });
@@ -204,7 +205,7 @@ export async function cancelBooking(id) {
 
 export async function getOwnerBookings() {
     try {
-        const res = await fetch(`${API_URL}/api/bookings/owner`, {
+        const res = await fetch(`${API_URL}/bookings/owner`, {
             method: "GET",
             credentials: "include",
             cache: "no-store",

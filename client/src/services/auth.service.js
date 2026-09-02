@@ -1,5 +1,5 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
-const API_AUTH = `${API_URL}/api/auth`
+const API_URL = "/api";
+const API_AUTH = `${API_URL}/auth`
 export const authService = {
   login: async (credentials) => {
     const res = await fetch(`${API_AUTH}/login`, {

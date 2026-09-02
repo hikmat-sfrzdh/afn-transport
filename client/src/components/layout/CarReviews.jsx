@@ -5,7 +5,7 @@ import Link from "next/link";
 import { updateReview } from "@/services/api.service";
 import { Pencil, Trash2, Star, StarHalf } from "lucide-react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+const API_URL = "/api";
 
 const renderStars = (ratingValue, size = 16) => {
   const stars = [];
@@ -40,7 +40,7 @@ export default function CarReviews({ carId, currentUser }) {
 
     const getReviews = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/reviews/car/${carId}`, {
+        const response = await fetch(`${API_URL}/reviews/car/${carId}`, {
           method: "GET",
           credentials: "include",
         });
@@ -94,7 +94,7 @@ export default function CarReviews({ carId, currentUser }) {
         comment: comment,
       };
 
-      const response = await fetch(`${API_URL}/api/reviews`, {
+      const response = await fetch(`${API_URL}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -113,7 +113,7 @@ export default function CarReviews({ carId, currentUser }) {
       setComment("");
       setRating(5);
 
-      const reviewsResponse = await fetch(`${API_URL}/api/reviews/car/${carId}`, {
+      const reviewsResponse = await fetch(`${API_URL}/reviews/car/${carId}`, {
         method: "GET",
         credentials: "include",
       });
@@ -138,7 +138,7 @@ export default function CarReviews({ carId, currentUser }) {
     }
 
     try {
-      const response = await fetch(`${API_URL}/api/reviews/${reviewId}`, {
+      const response = await fetch(`${API_URL}/reviews/${reviewId}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -150,7 +150,7 @@ export default function CarReviews({ carId, currentUser }) {
         throw new Error(data.message || "Review silinə bilmədi");
       }
 
-      const reviewsResponse = await fetch(`${API_URL}/api/reviews/car/${carId}`, {
+      const reviewsResponse = await fetch(`${API_URL}/reviews/car/${carId}`, {
         method: "GET",
         credentials: "include",
       });
@@ -176,7 +176,7 @@ export default function CarReviews({ carId, currentUser }) {
 
       setEditingReview(null);
 
-      const response = await fetch(`${API_URL}/api/reviews/car/${carId}`, {
+      const response = await fetch(`${API_URL}/reviews/car/${carId}`, {
         method: "GET",
         credentials: "include",
       });

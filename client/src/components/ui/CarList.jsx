@@ -7,7 +7,7 @@ import CarCard from "./CarCard";
 import CarNotFound from "./CarNotFound";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
+  "/api";
 
 export default function CarList({ page = 1, setTotalPages }) {
   const [cars, setCars] = useState([]);
@@ -28,7 +28,7 @@ export default function CarList({ page = 1, setTotalPages }) {
         params.set("limit", 12);
 
         const res = await fetch(
-          `${API_URL}/api/cars?${params.toString()}`
+          `${API_URL}/cars?${params.toString()}`
         );
 
         if (!res.ok) {

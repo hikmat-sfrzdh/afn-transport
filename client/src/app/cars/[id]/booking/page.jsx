@@ -7,7 +7,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"
+const API_URL = "/api"
 
 const getLocalDateString = (d = new Date()) => {
     const year = d.getFullYear();

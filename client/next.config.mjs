@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const isDev = process.env.NODE_ENV === 'development';
+
 const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
@@ -10,6 +12,16 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: isDev
+          ? "http://localhost:8080/api/:path*"
+          : "https://afn-transport-qqum.onrender.com/api/:path*",
+      },
+    ];
   },
 };
 

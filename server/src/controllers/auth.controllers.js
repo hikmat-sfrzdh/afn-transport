@@ -98,17 +98,28 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        res.clearCookie("token", { path : "/" });
-        res.clearCookie("role", { path : "/"} );
+        const isProduction = process.env.NODE_ENV === "production";
+        
+        res.clearCookie("token", { 
+            path: "/", 
+            secure: isProduction, 
+            sameSite: "none" 
+        });
+        res.clearCookie("role", { 
+            path: "/", 
+            secure: isProduction, 
+            sameSite: "none" 
+        });
+
         res.status(200).json({
             message: "Logged out successfully!"
-        })
+        });
     } catch (error) {
         res.status(500).json({
             message: error.message
-        })
+        });
     }
-}
+};
 
 const forgotPassword = async (req, res) => {
     try {
