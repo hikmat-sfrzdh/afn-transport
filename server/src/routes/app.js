@@ -9,9 +9,10 @@ const app = express();
 app.use(cookieParser())
 
 const allowedOrigins = [
-  'afn-transport-nu.vercel.app', 
-  'http://localhost:3000'              
+  'https://afn-transport-nu.vercel.app', 
+  'http://localhost:3000'                   
 ];
+
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin) {
@@ -27,6 +28,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.options('*', cors());
 
 app.use(express.json())
