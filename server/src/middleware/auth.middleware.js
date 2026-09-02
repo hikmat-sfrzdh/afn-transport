@@ -2,25 +2,46 @@ const jwt = require("jsonwebtoken");
 const { config } = require("../config/config");
 
 const verifyToken = (req, res, next) => {
-    if (req.method === 'OPTIONS') return next();
-
     try {
-        const token = req.cookies?.token;
-        if (!token) return res.status(401).json({ message: "No token provided" });
+        if (req.method === 'OPTIONS') {
+            return next();
+        }
 
-        req.user = jwt.verify(token, config.jwt_secret);
+        const token = req.cookies?.token;
+        if (!token) {
+            return res.status(401).json({ message: "No token provided" });
+        }
+
+        const decoded = jwt.verify(token, config.jwt_secret);
+        req.user = decoded;
         next();
-    } catch {
-        res.status(401).json({ message: "Invalid or expired token" });
+    } catch (error) {
+        return res.status(401).json({ 
+            message: error.message
+        });
     }
 };
 
-const checkRole = (...roles) => (req, res, next) => {
-    if (req.method === 'OPTIONS') return next();
+const checkRole = (...roles) => {
+    return (req, res, next) => {
+        try {
+            if (req.method === 'OPTIONS') {
+                return next();
+            }
 
-    roles.includes(req.user?.role) 
-        ? next() 
-        : res.status(403).json({ message: `Access denied. Required roles: ${roles.join(", ")}` });
+            if (!req.user || !roles.includes(req.user.role)) {
+                return res.status(403).json({
+                    message: `Access denied. Required roles: ${roles.join(", ")}`
+                });
+            }
+
+            next();
+        } catch (error) {
+            return res.status(500).json({ 
+                message: error.message
+            });
+        }
+    };
 };
 
 module.exports = { verifyToken, checkRole };
