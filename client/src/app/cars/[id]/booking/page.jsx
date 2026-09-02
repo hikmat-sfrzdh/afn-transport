@@ -158,7 +158,7 @@ function BookingContent() {
             const data = await res.json();
             if (!res.ok) throw new Error(data.message || "Xəta baş verdi");
 
-            router.push(`/api/cars/${carId}/booking/success`);
+            router.push(`/cars/${carId}/booking/success`);
         } catch (err) {
             setError(err.message);
         } finally {
