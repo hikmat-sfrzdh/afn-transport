@@ -6,8 +6,6 @@ import { useSearchParams } from "next/navigation";
 import CarCard from "./CarCard";
 import CarNotFound from "./CarNotFound";
 
-const API_URL =
-  "/api";
 
 export default function CarList({ page = 1, setTotalPages }) {
   const [cars, setCars] = useState([]);
@@ -28,7 +26,7 @@ export default function CarList({ page = 1, setTotalPages }) {
         params.set("limit", 12);
 
         const res = await fetch(
-          `${API_URL}/cars?${params.toString()}`
+          `/api/cars?${params.toString()}`
         );
 
         if (!res.ok) {

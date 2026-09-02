@@ -7,7 +7,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 
-const API_URL = "/api"
+
 
 const getLocalDateString = (d = new Date()) => {
     const year = d.getFullYear();
@@ -65,7 +65,7 @@ function BookingContent() {
         async function fetchCarDetails() {
             if (!carId) return;
             try {
-                const res = await fetch(`${API_URL}/cars/${carId}`);
+                const res = await fetch(`/api/cars/${carId}`);
                 const data = await res.json();
                 const carData = data.car || data;
 
@@ -140,7 +140,7 @@ function BookingContent() {
         setError("");
 
         try {
-            const res = await fetch(`${API_URL}/bookings`, {
+            const res = await fetch(`/api/bookings`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
